@@ -21,7 +21,7 @@ Terraform Playlist Demo    | Create a Spotify playlist using Terraform. Follow t
  http://localhost:27228/spotify_callback
 ```
 
-# Run authorization server
+# 2- Run authorization server
 
 - Now that you created the Spotify app, you are ready to configure and start the authorization proxy server, which allows Terraform to interact with Spotify.
 
@@ -59,7 +59,7 @@ indicating that the Terraform provider can use the server to retrieve access tok
 
 - Leave the server running.
 
-# Clone example repository
+# 3- Clone example repository
 
 - Clone the example Terraform configuration for this tutorial. It contains a complete Terraform configuration that searches for songs by Cem Adrian, and creates a playlist out of them.
 
@@ -73,7 +73,7 @@ $ git clone https://github.com/usuladams/spotify_terraform.git
 $ cd spotify_terraform
 ```
 
-# Set the API key
+# 4- Set the API key
 
 - Rename the terraform.tfvars.example file terraform.tfvars so that Terraform can detect the file.
 
@@ -104,7 +104,7 @@ variable "spotify_api_key" {
 }
 ```
 
-# Install the Spotify provider
+# 5- Install the Spotify provider
 
 - In your terminal, initialize Terraform, which will install the Spotify provider.
 
@@ -112,7 +112,7 @@ variable "spotify_api_key" {
 $ terraform init
 ```
 
-# Create the playlist
+# 6- Create the playlist
 
 - Now you are ready to create your playlist. Apply your Terraform configuration. Terraform will show you the changes it plans to make and prompt for your approval.
 
@@ -131,6 +131,6 @@ Do you want to perform these actions?
   Enter a value: yes
 ```
 
-# Listen to your playlist
+# 7- Listen to your playlist
 
 - Open the playlist URL returned in the Terraform output and enjoy your playlist!
