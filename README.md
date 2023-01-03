@@ -3,6 +3,7 @@
 ```bash
 https://developer.spotify.com/dashboard/applications
 ```
+![Screenshot](assets.png)
 
 - Click the green Create an app button.
 
