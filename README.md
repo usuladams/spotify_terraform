@@ -1,102 +1,111 @@
-# 1- Login to the Spotify developer dashboard. 
+# 1- Spotify developer dashboard giriş yapın. Aşağıdaki linke tıklayın.
 
 ```bash
 https://developer.spotify.com/dashboard/applications
 ```
 ![Screenshot](assets.png)
 
-- Click the green Create an app button.
+- Login olun. 
 
-- Fill out the name and description according to the table below, check the box to agree to the terms of services, then click Create.
+- Yeşil Create an App butonuna tıklayın.
+
+- Aşağıdaki tabloya göre name ve description doldurunuz. Anladım ve Kabul ediyorum checkbox una tıklayınız. Sonrasında Create tıklayınız.
 
 Name                       | Description
 -------------------------- | -------------
 Terraform Playlist Demo    | Create a Spotify playlist using Terraform. Follow the tutorial at learn.hashicorp.com/tutorials/terraform/spotify-playlist
                                                                                                                  
+![Screenshot](create.png)
 
-- Once Spotify creates the application, find and click the green Edit Settings button on the top right side.
+- Spotify uygulamayı oluşturduktan sonra sağ üst taraftaki yeşil Edit Settings butonuna tıklayınız.
 
-- Copy the URI below into the Redirect URI field and click Add so that Spotify can find its authorization application locally on port 27228 at the correct path.    Scroll to the bottom of the form and click Save.
+- Aşağıdaki URI'yi Redirect URIs alanına kopyalayın ve ADD butonuna tıklayın, böylece Spotify yetkilendirme uygulamasını yerel olarak 27228 numaralı bağlantı portuna iletebilir. Formun en altına gidin ve SAVE butonuna tıklayın. 
 
 ```bash
  http://localhost:27228/spotify_callback
 ```
 
-# 2- Run authorization server
+![Screenshot](redirect.png)
 
-- Now that you created the Spotify app, you are ready to configure and start the authorization proxy server, which allows Terraform to interact with Spotify.
+# 2- Kimlik Yetkilendirmesi(authorization) için server çalıştırma
 
-- Return to your terminal and set the redirect URI as an environment variable, instructing the authorization proxy server to serve your Spotify access tokens on port 27228.
+- Artık Spotify uygulamasını oluşturduğunuza göre, Terraform'un Spotify ile etkileşime girmesini sağlayan yetkilendirme proxy sunucusunu yapılandırmaya ve başlatmaya hazırsınız.
+
+![Screenshot](api.png)
+
+- Terminalinize geri dönün ve yetkilendirme proxy sunucusuna Spotify access token larını 27228 numaralı porta sunması talimatını vererek yönlendirme URI'sini bir ortam değişkeni olarak ayarlayın.
 
 ```bash
 $ export SPOTIFY_CLIENT_REDIRECT_URI=http://localhost:27228/spotify_callback
 ```
 
--Next, create a file called .env with the following contents to store your Spotify application's client ID and secret.
+- .env isimli bir dosya oluşturun. İçerisine Spotify application's client ID and secret değerlerini giriniz.
 
 ```bash
 SPOTIFY_CLIENT_ID=
 SPOTIFY_CLIENT_SECRET=
 ```
 
-- Copy the Client ID from the Spotify app page underneath your app's title and description, and paste it into .env as your SPOTIFY_CLIENT_ID.
+- app's title and description altındaki Spotify App sayfasından Client ID kopyalayın. ve SPOTIFY_CLIENT_ID olarak .env dosyası içine yapıştırın.
 
-- Click Show client secret and copy the value displayed into .env as your SPOTIFY_CLIENT_SECRET.
+![Screenshot](client.png)
 
-- Make sure Docker Desktop is running, and start the server. It will run in your terminal's foreground.
+- Show client secret tıklayın ve .env dosyasının içindeki SPOTIFY_CLIENT_SECRET değeri olarak yapıştırın.
+
+- PC nizde Docker veya Docker Desktop un yüklü olduğundan emin olun ve Docker başlatın. Daha sonra terminalinizde aşağıdaki komut satırını çalıştırın. .env dosyasının olduğu dizinde olduğunuzdan emin olun. 
 
 ```bash
 $ docker run --rm -it -p 27228:27228 --env-file ./.env ghcr.io/conradludgate/spotify-auth-proxy
 ```
+![Screenshot](auth.png)
 
-- Visit the authorization server's URL by visiting the link that your terminal output lists after Auth:.
+- Auth:'dan sonra terminal çıktınızın listelediği bağlantıyı ziyaret ederek yetkilendirme sunucusunun URL'sini ziyaret edin. 
 
-- The server will redirect you to Spotify to authenticate. After authenticating, the server will display 
+- Sunucu, kimlik doğrulaması için sizi Spotify'a yönlendirecek. Kimlik doğrulamasından sonra sunucu, Terraform sağlayıcısının erişim belirteçlerini almak için sunucuyu kullanabileceğini belirten Yetkilendirme başarılı mesajını gösterecektir. Aşağıdaki mesajı gördüğünüzden emin olun. 
 
 ```bash
 Authorization successful
 ```
-indicating that the Terraform provider can use the server to retrieve access tokens.
+- Sunucuyu çalışır durumda bırakın.
 
-- Leave the server running.
+# 3- Örnek Repository
 
-# 3- Clone example repository
-
-- Clone the example Terraform configuration for this tutorial. It contains a complete Terraform configuration that searches for songs by Cem Adrian, and creates a playlist out of them.
+- Bu eğitim için örnek Terraform dosyasını klonlayın. Cem Adrian, Melek Moso, Manuş Baba ve bir çok sanatçının şarkılarını arayan ve bunlardan bir çalma listesi oluşturan eksiksiz bir Terraform dosyasını içerir.
 
 ```bash
 $ git clone https://github.com/usuladams/spotify_terraform.git
 ```
 
-- Change into the directory.
+- dizini değiştirin.
 
 ```bash
 $ cd spotify_terraform
 ```
 
-# 4- Set the API key
+# 4- API key konfigürasyonu
 
-- Rename the terraform.tfvars.example file terraform.tfvars so that Terraform can detect the file.
+- terraform.tfvars.example dosyasının ismini terraform.tfvars olarak değiştirin.Terraform dosyayı bu isimle tanıyacaktır.
 
 ```bash
  mv terraform.tfvars.example terraform.tfvars
 ```
 
-- The .gitignore file in this repository excludes files with the .tfvars extension from version control to prevent you from accidentally committing your credentials.
+- Bu repository deki .gitignore dosyası, kimlik bilgilerinizi (credentials) yanlışlıkla commit etmenizi önlemek için .tfvars uzantılı dosyaları git vb. repolara göndermez.
 
 ```bash
-Warning: Never commit sensitive values to version control.
+UYARI: Git vb repolara hassas verilerinizi asla commit etmeyiniz.
 ```
 
-- Find the terminal window where the Spotify authorization proxy server is running and copy the APIKey from its output.
+- Spotify authorization proxy server ın çalıştığı terminal penceresini açın ve output taki APIKey i kopyalayın.
 
-- Open terraform.tfvars, and replace ... with the key from the proxy, so that Terraform can authenticate with Spotify. Save the file.
+- terraform.tfvars dosyasını açın, ve ... yazan yere APIKey inizi yapıştırın. Böylece Terraform, Spotify ile kimlik doğrulaması(authenticate) yapabilir. Daha sonra dosyayı kaydet.
+
 
 ```bash
 spotify_api_key = "..."
 ```
 
-- This variable is declared for you in variables.tf.
+- Bu değişken variables.tf dosyasında belirtilmiştir..
 
 ```bash
 variable "spotify_api_key" {
@@ -105,24 +114,25 @@ variable "spotify_api_key" {
 }
 ```
 
-# 5- Install the Spotify provider
+# 5- Spotify Provider Yükle
 
-- In your terminal, initialize Terraform, which will install the Spotify provider.
+- Terminalinizde, Spotify providerını yükleyecek olan Terraform'u başlatın.
+
 
 ```bash
 $ terraform init
 ```
 
-# 6- Create the playlist
+# 6- Playlist Oluştur
 
-- Now you are ready to create your playlist. Apply your Terraform configuration. Terraform will show you the changes it plans to make and prompt for your approval.
+- Artık oynatma listenizi oluşturmaya hazırsınız. Terraform yapılandırmanızı uygulayın. Terraform, yapmayı planladığı değişiklikleri size gösterecek ve onayınızı isteyecektir.
 
 - Run `terraform apply`. 
 
 ```bash
 terraform apply
 ```
-- Confirm the apply with a yes, and Terraform will create your playlist.
+- Yes ile onaylayın ve Terraform playlistinizi oluşturacaktır.
 
 ```txt
 Do you want to perform these actions?
@@ -132,6 +142,11 @@ Do you want to perform these actions?
   Enter a value: yes
 ```
 
-# 7- Listen to your playlist
+Çalma listesi oluştur
 
-- Open the playlist URL returned in the Terraform output and enjoy your playlist!
+
+# 7- Playlist inizi Dinleyin...
+
+- Terraform çıktısında döndürülen oynatma listesi URL'sini açın ve oynatma listenizin keyfini çıkarın!
+
+![Screenshot](playlist.png)
