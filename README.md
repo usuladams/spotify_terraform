@@ -1,4 +1,6 @@
-# 1- Spotify developer dashboard giriş yapın. Aşağıdaki linke tıklayın.
+# 1- Spotify developer dashboard 
+
+Aşağıdaki linke tıklayın ve giriş yapın.
 
 ```bash
 https://developer.spotify.com/dashboard/applications
