@@ -3,7 +3,7 @@
 ```bash
 https://developer.spotify.com/dashboard/applications
 ```
-![Screenshot](assets.png)
+![Screenshot](images/assets.png)
 
 - Login olun. 
 
@@ -15,7 +15,7 @@ Name                       | Description
 -------------------------- | -------------
 Terraform Playlist Demo    | Create a Spotify playlist using Terraform. Follow the tutorial at learn.hashicorp.com/tutorials/terraform/spotify-playlist
                                                                                                                  
-![Screenshot](create.png)
+![Screenshot](images/create.png)
 
 - Spotify uygulamayı oluşturduktan sonra sağ üst taraftaki yeşil Edit Settings butonuna tıklayınız.
 
@@ -25,13 +25,13 @@ Terraform Playlist Demo    | Create a Spotify playlist using Terraform. Follow t
  http://localhost:27228/spotify_callback
 ```
 
-![Screenshot](redirect.png)
+![Screenshot](images/redirect.png)
 
 # 2- Kimlik Yetkilendirmesi(authorization) için server çalıştırma
 
 - Artık Spotify uygulamasını oluşturduğunuza göre, Terraform'un Spotify ile etkileşime girmesini sağlayan yetkilendirme proxy sunucusunu yapılandırmaya ve başlatmaya hazırsınız.
 
-![Screenshot](api.png)
+![Screenshot](images/api.png)
 
 - Terminalinize geri dönün ve yetkilendirme proxy sunucusuna Spotify access token larını 27228 numaralı porta sunması talimatını vererek yönlendirme URI'sini bir ortam değişkeni olarak ayarlayın.
 
@@ -48,7 +48,7 @@ SPOTIFY_CLIENT_SECRET=
 
 - app's title and description altındaki Spotify App sayfasından Client ID kopyalayın. ve SPOTIFY_CLIENT_ID olarak .env dosyası içine yapıştırın.
 
-![Screenshot](client.png)
+![Screenshot](images/client_id.png)
 
 - Show client secret tıklayın ve .env dosyasının içindeki SPOTIFY_CLIENT_SECRET değeri olarak yapıştırın.
 
@@ -57,7 +57,7 @@ SPOTIFY_CLIENT_SECRET=
 ```bash
 $ docker run --rm -it -p 27228:27228 --env-file ./.env ghcr.io/conradludgate/spotify-auth-proxy
 ```
-![Screenshot](auth.png)
+![Screenshot](images/auth.png)
 
 - Auth:'dan sonra terminal çıktınızın listelediği bağlantıyı ziyaret ederek yetkilendirme sunucusunun URL'sini ziyaret edin. 
 
@@ -149,4 +149,4 @@ Do you want to perform these actions?
 
 - Terraform çıktısında döndürülen oynatma listesi URL'sini açın ve oynatma listenizin keyfini çıkarın!
 
-![Screenshot](playlist.png)
+![Screenshot](images/playlist.png)
