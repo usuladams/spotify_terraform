@@ -3,7 +3,7 @@
 ```bash
 https://developer.spotify.com/dashboard/applications
 ```
-![Screenshot](assets.png)
+![Screenshot](images/assets.png)
 
 - Click the green Create an app button.
 
@@ -12,7 +12,8 @@ https://developer.spotify.com/dashboard/applications
 Name                       | Description
 -------------------------- | -------------
 Terraform Playlist Demo    | Create a Spotify playlist using Terraform. Follow the tutorial at learn.hashicorp.com/tutorials/terraform/spotify-playlist
-                                                                                                                 
+
+![Screenshot](images/create.png)                              
 
 - Once Spotify creates the application, find and click the green Edit Settings button on the top right side.
 
@@ -21,10 +22,13 @@ Terraform Playlist Demo    | Create a Spotify playlist using Terraform. Follow t
 ```bash
  http://localhost:27228/spotify_callback
 ```
+![Screenshot](images/redirect.png)
 
 # 2- Run authorization server
 
 - Now that you created the Spotify app, you are ready to configure and start the authorization proxy server, which allows Terraform to interact with Spotify.
+
+![Screenshot](images/api.png)
 
 - Return to your terminal and set the redirect URI as an environment variable, instructing the authorization proxy server to serve your Spotify access tokens on port 27228.
 
@@ -41,6 +45,8 @@ SPOTIFY_CLIENT_SECRET=
 
 - Copy the Client ID from the Spotify app page underneath your app's title and description, and paste it into .env as your SPOTIFY_CLIENT_ID.
 
+![Screenshot](images/client_id.png)
+
 - Click Show client secret and copy the value displayed into .env as your SPOTIFY_CLIENT_SECRET.
 
 - Make sure Docker Desktop is running, and start the server. It will run in your terminal's foreground.
@@ -48,6 +54,7 @@ SPOTIFY_CLIENT_SECRET=
 ```bash
 $ docker run --rm -it -p 27228:27228 --env-file ./.env ghcr.io/conradludgate/spotify-auth-proxy
 ```
+![Screenshot](images/auth.png)
 
 - Visit the authorization server's URL by visiting the link that your terminal output lists after Auth:.
 
@@ -135,3 +142,5 @@ Do you want to perform these actions?
 # 7- Listen to your playlist
 
 - Open the playlist URL returned in the Terraform output and enjoy your playlist!
+
+![Screenshot](images/playlist.png)

@@ -14,22 +14,20 @@ provider "spotify" {
 data "spotify_search_track" "cem" {
   artist = "Cem Adrian"
   limit = 20
-  #  album = "Jolene"
-  #  name  = "Early Morning Breeze"
+  #  album = "Kül"                          album (String) Name of the album
+  #  name  = "Sen Gel Diyorsun"             name (String) Name of the track
 }
 
 data "spotify_search_track" "mosso" {
   artist = "Melek Mosso"
   limit = 20
-  #  album = "Jolene"
-  #  name  = "Early Morning Breeze"
+ 
 }
 
 data "spotify_search_track" "manusbaba" {
   artist = "Manuş Baba"
   limit = 20
-  #  album = "Jolene"
-  #  name  = "Early Morning Breeze"
+  
 }
 
 
@@ -99,15 +97,14 @@ resource "spotify_library_albums" "my_album" {
 data "spotify_search_track" "adele" {
   artist = "Adele"
   limit = 20
-  #  album = "Jolene"
-  #  name  = "Early Morning Breeze"
+  #  album = "Skyfall"                album (String) Name of the album
+  #  name  = "Easy On Me"             name (String) Name of the track
 }
 
 data "spotify_search_track" "taylor" {
   artist = "Taylor Swift"
   limit = 20
-  #  album = "Jolene"
-  #  name  = "Early Morning Breeze"
+  
 }
 
 
