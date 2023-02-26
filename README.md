@@ -7,7 +7,7 @@ https://developer.spotify.com/dashboard/applications
 ```
 ![Screenshot](images/assets.png)
 
-- Login olun. 
+- Login olun.  
 
 - Yeşil Create an App butonuna tıklayın.
 
